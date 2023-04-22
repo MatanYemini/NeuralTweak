@@ -1,5 +1,5 @@
 import os
-import pdfplumber
+import pdfplumber # https://pypi.org/project/pdfplumber/
 
 
 def save_file(filepath, content):
@@ -9,20 +9,21 @@ def save_file(filepath, content):
 
 def convert_pdf2txt(src_dir, dest_dir):
     files = os.listdir(src_dir)
+    print("Found files to process: ", files)
     files = [i for i in files if '.pdf' in i]
     for file in files:
         try:
+            print("Trying to parse: ", file)
             with pdfplumber.open(src_dir+file) as pdf:
                 output = ''
                 for page in pdf.pages:
                     output += page.extract_text()
                     output += '\n\nNEW PAGE\n\n'  # change this for your page demarcation
                 save_file(dest_dir+file.replace('.pdf','.txt'), output.strip())
+                print("Processed file: ", file)
         except Exception as oops:
             print(oops, file)
 
 
-
-
 if __name__ == '__main__':
-    convert_pdf2txt('../assets/pre-processing', '../assets/post-processing')
+    convert_pdf2txt('../assets/pre-processing/PDFs/', '../assets/post-processing')
