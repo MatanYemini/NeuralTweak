@@ -49,3 +49,24 @@ for epoch in range(num_epochs):
         )
         loss = response.choices[0].text
         print(f"Batch {i // (batch_size * max_seq_length) + 1} loss: {loss}")
+
+
+def train_model(processed_files_dir):
+    files = os.listdir(processed_files_dir)
+    print("Found files to train the model on: ", files)
+    files = [i for i in files if '.txt' in i]
+    for file in files:
+        try:
+            print("Trying to traing the model on: ", file)
+            with pdfplumber.open(src_dir+file) as pdf:
+                output = ''
+                for page in pdf.pages:
+                    output += page.extract_text()
+                    output += '\n\nNEW PAGE\n\n'  # change this for your page demarcation
+                save_file(dest_dir+file.replace('.pdf','.txt'), output.strip())
+                print("Processed file: ", file)
+        except Exception as oops:
+            print(oops, file)
+
+if __name__ == '__main__':
+    train_model('../assets/pre-processing/PDFs/', '../assets/post-processing')
