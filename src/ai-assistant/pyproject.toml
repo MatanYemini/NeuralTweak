@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "ai-assistant"
+version = "0.1.0"
+description = ""
+authors = ["Matan Yemini <matan@engageli.com>"]
+readme = "README.md"
+packages = [{include = "server"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+openai = "^0.27.4"
+fastapi = "^0.95.1"
+uvicorn = "^0.21.1"
+python-dotenv = "^1.0.0"
+pydantic = "^1.10.7"
+tenacity = "^8.2.2"
+tiktoken = "^0.3.3"
+numpy = "^1.24.3"
+docx2txt = "^0.8"
+pypdf2 = "^3.0.1"
+python-pptx = "^0.6.21"
+python-multipart = "^0.0.6"
+arrow = "^1.2.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
